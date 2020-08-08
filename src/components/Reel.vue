@@ -5,6 +5,7 @@
         :symbol="symbol"
         :active="allActive ? allActive : highlightIndex.includes(index)"
         :animate="highlightIndex.includes(index)"
+        @done-animate="resetAnimation(index)"
       />
     </div>
   </div>
@@ -56,7 +57,7 @@ export default {
       let offset = Math.ceil(Math.random() * 10);
       this.currentOffset = offset;
       const reel = this.$refs.reel;
-      const symbolHeight = reel.offsetHeight / 3;
+      const symbolHeight = reel && reel.offsetHeight / 3;
       const reelHeight = symbolHeight * this.symbols.length;
       let offsetHeight = symbolHeight * offset;
       const ypos = this.currentTransY + offsetHeight + reelHeight * 3;
@@ -87,6 +88,10 @@ export default {
           this.$emit("results", { order: this.order, results: this.results });
         }
       });
+    },
+    resetAnimation(index) {
+      const idx = this.highlightIndex.indexOf(idx);
+      this.highlightIndex.splice(idx, 1);
     }
   },
   mounted() {

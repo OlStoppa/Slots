@@ -47,7 +47,10 @@ export default {
               value: 0
             }
           ],
-          complete: () => {}
+          complete: () => {
+            this.$emit("done-animate");
+            console.log("emititing");
+          }
         });
       }
     }
